@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Page() {
   const [showGrid, setShowGrid] = useState(false);
@@ -9,17 +10,31 @@ export default function Page() {
     setShowGrid(true);
   };
 
+  const gallery = [
+    {
+      id: 1,
+      logo: <img src="/PH.jpg" />,
+    },
+    {
+      id: 2,
+      logo: <img src="/PH.jpg" />,
+    },
+    {
+      id: 3,
+      logo: <img src="/PH.jpg" />,
+    },
+  ];
+
   return (
     <div
       className="bg-white text-black flex flex-row items-center justify-center h-screen w-screen"
       onClick={handleClick}
     >
       {showGrid ? (
-        <div className="grid grid-cols-2 gap-4">
-          <p>Image 1</p>
-          <p>Image 2</p>
-          <p>Image 3</p>
-          <p>Image 4</p>
+        <div className="grid grid-cols-2 h-screen w-screen p-32">
+          {gallery.map((items, i) => {
+            return <div key={i}>{items.logo}</div>;
+          })}
         </div>
       ) : (
         <div className="flex flex-col items-center">
