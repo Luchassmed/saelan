@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { getAllProjects } from "../lib/projects";
 
 export default function Page() {
   const [showGrid, setShowGrid] = useState(false);
@@ -10,38 +12,35 @@ export default function Page() {
     setShowGrid(true);
   };
 
-  const gallery = [
-    {
-      id: 1,
-      logo: <img src="/PH.jpg" />,
-    },
-    {
-      id: 2,
-      logo: <img src="/PH.jpg" />,
-    },
-    {
-      id: 3,
-      logo: <img src="/PH.jpg" />,
-    },
-  ];
+  const projects = getAllProjects();
 
   return (
     <div
-      className="bg-white text-black flex flex-row items-center justify-center h-screen w-screen"
+      className="bg-white text-black flex flex-col items-center min-h-screen p-10"
       onClick={handleClick}
     >
-      {showGrid ? (
-        <div className="grid grid-cols-2 h-screen w-screen p-32">
-          {gallery.map((items, i) => {
-            return <div key={i}>{items.logo}</div>;
-          })}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold">Oskar Sælan Halskov</div>
-          <div className="text-2xl">Stud.Arch. MAA</div>
-        </div>
-      )}
+      <div className="flex flex-col items-center">
+        <div className="text-4xl font-bold">Oskar Sælan Halskov</div>
+        <div className="text-2xl">Stud.Arch. MAA</div>
+        <div className="text-2xl">Arbejder som ... </div>
+      </div>
+
+      <div className="mt-8 w-full max-w-2xl flex flex-col items-center">
+        <h2 className="text-xl font-semibold mb-3">
+          <Link href="/projects" className="hover:underline">
+            Projekter
+          </Link>
+        </h2>
+        <ul className="space-y-2 flex flex-col items-center">
+          {projects.map((p) => (
+            <li key={p.slug} className="w-auto">
+              <Link href={`/projects/${p.slug}`} className="hover:underline">
+                {p.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
