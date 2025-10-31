@@ -16,17 +16,17 @@ export default function Page() {
 
   return (
     <div
-      className="bg-white text-black flex flex-col items-center min-h-screen p-10"
+      className="bg-white text-black flex flex-col items-center min-h-screen p-10 gap-20"
       onClick={handleClick}
     >
-      <div className="flex flex-col items-center">
-        <div className="text-4xl font-bold">Oskar Sælan Halskov</div>
-        <div className="text-2xl">Stud.Arch. MAA</div>
-        <div className="text-2xl">Arbejder som ... </div>
+      <div className="flex flex-row justify-around w-screen">
+        <div className="text-2xl font-bold">PROJEKTER/PROJECTS</div>
+        <div className="text-2xl font-bold">POLYRATTAN</div>
+        <div className="text-2xl font-bold">KONTAKT.CONTACT</div>
       </div>
 
-      <div className="mt-8 w-full max-w-2xl flex flex-col items-center">
-        <h2 className="text-xl font-semibold mb-3">
+      <div className="w-full max-w-2xl items-center border-2 h-64 border-black py-10">
+        {/* <h2 className="text-xl font-semibold mb-3">
           <Link href="/projects" className="hover:underline">
             Projekter
           </Link>
@@ -39,7 +39,7 @@ export default function Page() {
               </Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </div>
   );
