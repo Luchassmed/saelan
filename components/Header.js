@@ -7,6 +7,8 @@ import { getAllProjects } from "../lib/projects";
 export default function Header() {
   const [showGrid, setShowGrid] = useState(false);
   const [openCategory, setOpenCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -39,34 +41,46 @@ export default function Header() {
           </button>
 
           {showGrid && (
-            <div className="absolute z-50 top-full left-0 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded">
+            <div className="absolute z-50 top-full left-0 mt-2 w-64 bg-white rounded">
               {[
                 { key: "architecture", label: "ARKITEKTUR.ARCHITECTURE" },
                 { key: "illustration", label: "ILLUSTRATION.ILLUSTRATION" },
                 { key: "other", label: "ANDET.OTHER" },
               ].map((cat) => (
-                <div key={cat.key} className="border-b last:border-b-0">
+                <div key={cat.key} className="relative">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setOpenCategory((o) => (o === cat.key ? null : cat.key));
+                      const next = openCategory === cat.key ? null : cat.key;
+                      setOpenCategory(next);
+                      // mark as selected when clicked
+                      setSelectedCategory(next);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-50"
+                    className={`w-full text-left px-4 py-2 hover:underline ${
+                      selectedCategory === cat.key
+                        ? "filter blur-sm opacity-60"
+                        : ""
+                    }`}
                   >
                     {cat.label}
                   </button>
-
                   {openCategory === cat.key && (
-                    <ul className="px-6 pb-2">
+                    <ul className="absolute left-full top-0 ml-2 w-56 bg-white rounded px-3 py-2 z-50">
                       {projects
                         .filter((p) => p.category === cat.key)
                         .map((p) => (
                           <li key={p.slug} className="py-1">
                             <Link
                               href={`/projects/${p.slug}`}
-                              className="text-sm hover:underline"
+                              className={`text-sm hover:underline ${
+                                selectedProject === p.slug
+                                  ? "filter blur-sm opacity-60"
+                                  : ""
+                              }`}
                               onClick={() => {
-                                // close dropdown when navigating to a project
+                                // mark clicked project and close dropdown
+                                setSelectedProject(p.slug);
+                                setSelectedCategory(cat.key);
                                 setShowGrid(false);
                                 setOpenCategory(null);
                               }}
