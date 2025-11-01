@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { getAllProjects } from "../lib/projects";
 
@@ -10,6 +11,7 @@ export default function Header() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const ref = useRef(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     function onDocClick(e) {
@@ -21,6 +23,17 @@ export default function Header() {
     document.addEventListener("click", onDocClick);
     return () => document.removeEventListener("click", onDocClick);
   }, []);
+
+  // Reset selected/active state only when returning to the home page so blurs
+  // are cleared when you go back to the main view, but persist while on project pages.
+  useEffect(() => {
+    if (pathname === "/") {
+      setShowGrid(false);
+      setOpenCategory(null);
+      setSelectedCategory(null);
+      setSelectedProject(null);
+    }
+  }, [pathname]);
 
   const projects = getAllProjects();
 

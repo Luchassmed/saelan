@@ -16,10 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={myFont.className}>
         <Header />
-        {/* use a calc height equal to viewport minus header (4rem) so centering isn't affected by top padding */}
-        <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
-          {children}
-        </div>
+        <div className="min-h-screen pt-16">{children}</div>
       </body>
     </html>
   );
