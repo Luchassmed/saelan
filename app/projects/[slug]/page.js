@@ -23,8 +23,8 @@ export default function ProjectPage({ params }) {
 
       <div className="prose">
         <p>
-          Bare en placeholder side for projektet for{" "}
-          <strong>{project.title}</strong>.
+          Bare en placeholder side for projekt: <strong>{project.title}</strong>
+          .
         </p>
       </div>
 
