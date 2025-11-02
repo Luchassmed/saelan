@@ -39,7 +39,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white">
-      <div className="h-16 flex items-center justify-around px-6">
+      <div className="h-16 flex items-center justify-around px-6 tracking-wide">
         <div className="relative" ref={ref}>
           <button
             onClick={(e) => {
@@ -50,7 +50,7 @@ export default function Header() {
             aria-expanded={showGrid}
             aria-haspopup="true"
           >
-            PROJEKTER.PROJECTS
+            PROJEKTER.<em className="italic">PROJECTS</em>
           </button>
 
           {showGrid && (
@@ -75,7 +75,8 @@ export default function Header() {
                         : ""
                     }`}
                   >
-                    {cat.label}
+                    {cat.label.split(".")[0]}.{""}
+                    <em className="italic">{cat.label.split(".")[1]}</em>
                   </button>
                   {openCategory === cat.key && (
                     <ul className="absolute left-full top-0 ml-2 w-56 bg-white rounded px-3 py-2 z-50">
@@ -91,11 +92,10 @@ export default function Header() {
                                   : ""
                               }`}
                               onClick={() => {
-                                // mark clicked project and close dropdown
+                                // mark clicked project but do NOT close the dropdown;
+                                // dropdown will only close when clicking outside
                                 setSelectedProject(p.slug);
                                 setSelectedCategory(cat.key);
-                                setShowGrid(false);
-                                setOpenCategory(null);
                               }}
                             >
                               {p.title}
@@ -110,8 +110,10 @@ export default function Header() {
           )}
         </div>
 
-        <div className="text-lg font-bold">POLYRATTAN</div>
-        <div className="text-lg font-bold">KONTAKT.CONTACT</div>
+        <div className="text-lg">POLYRATTAN</div>
+        <div className="text-lg">
+          KONTAKT.<em className="italic">CONTACT</em>
+        </div>
       </div>
     </header>
   );
