@@ -39,7 +39,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white">
-      <div className="h-16 flex items-center justify-around px-6 tracking-wide">
+      <div className="h-16 flex items-center justify-around px-6 tracking-widest">
         <div className="relative" ref={ref}>
           <button
             onClick={(e) => {
@@ -69,7 +69,7 @@ export default function Header() {
                       // mark as selected when clicked
                       setSelectedCategory(next);
                     }}
-                    className={`w-full text-left px-4 py-2 hover:underline ${
+                    className={`w-full text-left px-4 py-2 ${
                       selectedCategory === cat.key
                         ? "filter blur-sm opacity-60"
                         : ""
@@ -86,7 +86,7 @@ export default function Header() {
                           <li key={p.slug} className="py-1">
                             <Link
                               href={`/projects/${p.slug}`}
-                              className={`text-sm hover:underline ${
+                              className={`text-sm ${
                                 selectedProject === p.slug
                                   ? "filter blur-sm opacity-60"
                                   : ""
