@@ -10,6 +10,7 @@ export default function Header() {
   const [openCategory, setOpenCategory] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedTop, setSelectedTop] = useState(false);
   const ref = useRef(null);
   const pathname = usePathname();
 
@@ -18,6 +19,7 @@ export default function Header() {
       if (ref.current && !ref.current.contains(e.target)) {
         setShowGrid(false);
         setOpenCategory(null);
+        setSelectedTop(false);
       }
     }
     document.addEventListener("click", onDocClick);
@@ -32,6 +34,7 @@ export default function Header() {
       setOpenCategory(null);
       setSelectedCategory(null);
       setSelectedProject(null);
+      setSelectedTop(false);
     }
   }, [pathname]);
 
@@ -39,14 +42,20 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white">
-      <div className="h-16 flex items-center justify-around px-6 tracking-widest">
+      <div className="h-16 flex items-center justify-between px-2 tracking-widest">
         <div className="relative" ref={ref}>
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setShowGrid((s) => !s);
+              setShowGrid((s) => {
+                const next = !s;
+                setSelectedTop(next);
+                return next;
+              });
             }}
-            className="text-lg font-bold"
+            className={`text-lg font-bold ${
+              selectedTop ? "filter blur-sm opacity-60" : ""
+            }`}
             aria-expanded={showGrid}
             aria-haspopup="true"
           >
