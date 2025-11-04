@@ -136,7 +136,7 @@ export default function Header() {
           <img
             src="/polyrattanLogo.jpg"
             alt="Polyrattan"
-            className="h-10 w-auto block"
+            className="h-6 w-24 md:h-10 md:w-auto block"
           />
         </Link>
 
