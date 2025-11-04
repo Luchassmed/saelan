@@ -67,11 +67,6 @@ export default function ProjectPage({ params }) {
           </div>
         </div>
       </div>
-      <div className="mt-6">
-        <Link href="/" className="hover:underline">
-          ← Back
-        </Link>
-      </div>
     </main>
   );
 }
