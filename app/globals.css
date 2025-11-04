@@ -10,3 +10,17 @@
 body {
   font-family: "Italian Plate", "Inter", Arial, sans-serif;
 }
+
+/* Global fade-in used for page/route transitions */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 200ms ease-out forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

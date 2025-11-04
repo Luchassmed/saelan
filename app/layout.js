@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import Header from "../components/Header";
+import TransitionWrapper from "../components/TransitionWrapper";
 
 // Font files can be colocated inside of `pages`
 const myFont = localFont({ src: "ItalianPlateNo2-Light.otf" });
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={myFont.className}>
         <Header />
-        <div className="min-h-screen pt-16">{children}</div>
+        <TransitionWrapper>
+          <div className="min-h-screen pt-16">{children}</div>
+        </TransitionWrapper>
       </body>
     </html>
   );

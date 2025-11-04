@@ -13,18 +13,17 @@ export default function Header() {
   const [selectedTop, setSelectedTop] = useState(false);
   const ref = useRef(null);
   const pathname = usePathname();
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    function onDocClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setShowGrid(false);
-        setOpenCategory(null);
-        setSelectedTop(false);
-      }
-    }
-    document.addEventListener("click", onDocClick);
-    return () => document.removeEventListener("click", onDocClick);
-  }, []);
+    // trigger the fade-in class on pathname change for the header
+    setAnimate(true);
+    const t = setTimeout(() => setAnimate(false), 220);
+    return () => clearTimeout(t);
+  }, [pathname]);
+
+  // Note: menu should remain open once opened. We intentionally do not
+  // close it on outside clicks. The only way to close is via POLYRATTAN or KONTAKT.
 
   // Reset selected/active state only when returning to the home page so blurs
   // are cleared when you go back to the main view, but persist while on project pages.
@@ -41,19 +40,21 @@ export default function Header() {
   const projects = getAllProjects();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white">
-      <div className="h-16 flex items-center justify-between px-2 tracking-widest">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 bg-white ${
+        animate ? "fade-in" : ""
+      }`}
+    >
+      <div className="h-16 flex items-center justify-between px-2 tracking-widest relative text-sm">
         <div className="relative" ref={ref}>
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setShowGrid((s) => {
-                const next = !s;
-                setSelectedTop(next);
-                return next;
-              });
+              // always open the menu (do not allow closing by clicking again)
+              setShowGrid(true);
+              setSelectedTop(true);
             }}
-            className={`text-lg font-bold ${
+            className={`text-sm font-bold ${
               selectedTop ? "filter blur-sm opacity-60" : ""
             }`}
             aria-expanded={showGrid}
@@ -63,7 +64,7 @@ export default function Header() {
           </button>
 
           {showGrid && (
-            <div className="absolute z-50 top-full left-0 mt-2 w-64 bg-white rounded">
+            <div className="absolute z-50 top-full left-0 w-64 bg-white rounded">
               {[
                 { key: "architecture", label: "ARKITEKTUR.ARCHITECTURE" },
                 { key: "illustration", label: "ILLUSTRATION.ILLUSTRATION" },
@@ -119,9 +120,40 @@ export default function Header() {
           )}
         </div>
 
-        <div className="text-lg">POLYRATTAN</div>
-        <div className="text-lg">
-          KONTAKT.<em className="italic">CONTACT</em>
+        <Link
+          href="/"
+          onClick={() => {
+            // clicking the logo navigates home and closes the menu
+            setShowGrid(false);
+            setOpenCategory(null);
+            setSelectedCategory(null);
+            setSelectedProject(null);
+            setSelectedTop(false);
+          }}
+          aria-label="Go to home"
+          className="absolute left-1/2 transform -translate-x-1/2"
+        >
+          <img
+            src="/polyrattanLogo.jpg"
+            alt="Polyrattan"
+            className="h-10 w-auto block"
+          />
+        </Link>
+
+        <div className="ml-auto">
+          <button
+            className="text-sm"
+            onClick={() => {
+              // clicking KONTAKT should close the menu (contact page not implemented yet)
+              setShowGrid(false);
+              setOpenCategory(null);
+              setSelectedCategory(null);
+              setSelectedProject(null);
+              setSelectedTop(false);
+            }}
+          >
+            KONTAKT.<em className="italic">CONTACT</em>
+          </button>
         </div>
       </div>
     </header>
