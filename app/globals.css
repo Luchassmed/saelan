@@ -24,3 +24,28 @@ body {
     opacity: 1;
   }
 }
+/* fade-out used when hiding the splash video */
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 200ms ease-out forwards;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* globals.css */
+.polyrattan-mask {
+  -webkit-mask-image: url("/logoTransparent.png"); /* transparent PNG */
+  mask-image: url("/logoTransparent.png");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center bottom; /* tweak if needed */
+  mask-position: center bottom;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}

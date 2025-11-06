@@ -14,6 +14,7 @@ export default function Header() {
   const ref = useRef(null);
   const pathname = usePathname();
   const [animate, setAnimate] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     // trigger the fade-in class on pathname change for the header
@@ -21,6 +22,31 @@ export default function Header() {
     const t = setTimeout(() => setAnimate(false), 220);
     return () => clearTimeout(t);
   }, [pathname]);
+
+  useEffect(() => {
+    // also animate when visibility toggles (e.g., when splash is dismissed)
+    if (visible) {
+      setAnimate(true);
+      const t = setTimeout(() => setAnimate(false), 220);
+      return () => clearTimeout(t);
+    }
+    return undefined;
+  }, [visible]);
+
+  useEffect(() => {
+    // initialize visibility from localStorage and listen for showHeader events
+    try {
+      if (localStorage.getItem("showHeader") === "true") {
+        setVisible(true);
+      }
+    } catch (e) {
+      // ignore (SSR safety)
+    }
+
+    const handler = () => setVisible(true);
+    window.addEventListener("showHeader", handler);
+    return () => window.removeEventListener("showHeader", handler);
+  }, []);
 
   // Note: menu should remain open once opened. We intentionally do not
   // close it on outside clicks. The only way to close is via POLYRATTAN or KONTAKT.
@@ -34,10 +60,16 @@ export default function Header() {
       setSelectedCategory(null);
       setSelectedProject(null);
       setSelectedTop(false);
+      try {
+        localStorage.setItem("showHeader", "false");
+      } catch (e) {}
+      setVisible(false);
     }
   }, [pathname]);
 
   const projects = getAllProjects();
+
+  if (!visible) return null;
 
   return (
     <header
@@ -129,6 +161,13 @@ export default function Header() {
             setSelectedCategory(null);
             setSelectedProject(null);
             setSelectedTop(false);
+            try {
+              localStorage.setItem("showHeader", "false");
+            } catch (e) {}
+            setVisible(false);
+            try {
+              window.dispatchEvent(new Event("resetSplash"));
+            } catch (e) {}
           }}
           aria-label="Go to home"
           className="absolute left-1/2 transform -translate-x-1/2"
@@ -150,6 +189,10 @@ export default function Header() {
               setSelectedCategory(null);
               setSelectedProject(null);
               setSelectedTop(false);
+              try {
+                localStorage.setItem("showHeader", "false");
+              } catch (e) {}
+              setVisible(false);
             }}
           >
             KONTAKT.<em className="italic">CONTACT</em>
