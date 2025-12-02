@@ -16,8 +16,8 @@ export default function ContactPage() {
             OFFENTLIGT TILGÆNGELIG HER.
             <br />
             <em className="italic">
-              IF YOU WANT TO SEE THE "DRAWINGS" OF THE SITE, THE SOURCE CODE IS
-              PUBLICLY AVAILABLE HERE.
+              IF YOU WANT TO SEE THE &quot;DRAWINGS&quot; OF THE SITE, THE
+              SOURCE CODE IS PUBLICLY AVAILABLE HERE.
             </em>
           </p>
           <p>
