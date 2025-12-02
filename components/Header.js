@@ -180,23 +180,20 @@ export default function Header() {
         </Link>
 
         <div className="ml-auto">
-          <button
+          <Link
+            href="/contact"
             className="text-sm"
             onClick={() => {
-              // clicking KONTAKT should close the menu (contact page not implemented yet)
+              // clicking KONTAKT should close the menu but keep the header visible
               setShowGrid(false);
               setOpenCategory(null);
               setSelectedCategory(null);
               setSelectedProject(null);
               setSelectedTop(false);
-              try {
-                localStorage.setItem("showHeader", "false");
-              } catch (e) {}
-              setVisible(false);
             }}
           >
             KONTAKT.<em className="italic">CONTACT</em>
-          </button>
+          </Link>
         </div>
       </div>
     </header>
