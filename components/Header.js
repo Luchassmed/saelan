@@ -3,9 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { getAllProjects } from "../lib/projects";
-
-export default function Header() {
+export default function Header({ projects = [] }) {
   const [showGrid, setShowGrid] = useState(false);
   const [openCategory, setOpenCategory] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -66,8 +64,6 @@ export default function Header() {
       setVisible(false);
     }
   }, [pathname]);
-
-  const projects = getAllProjects();
 
   if (!visible) return null;
 

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { getAllProjects } from "../../lib/projects";
 
-export default function ProjectsPage() {
-  const projects = getAllProjects();
+export default async function ProjectsPage() {
+  const projects = await getAllProjects();
 
   return (
     <main className="p-8 max-w-4xl mx-auto">
@@ -29,6 +29,7 @@ export default function ProjectsPage() {
   );
 }
 
-export function generateStaticParams() {
-  return getAllProjects().map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const projects = await getAllProjects();
+  return projects.map((p) => ({ slug: p.slug }));
 }

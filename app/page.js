@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { getAllProjects } from "../lib/projects";
 import Video from "../components/Video";
 
 export default function Page() {
@@ -53,8 +52,6 @@ export default function Page() {
     // clicking outside should close the dropdown (no-op for now)
     setShowGrid(false);
   };
-
-  const projects = getAllProjects();
 
   return (
     <div

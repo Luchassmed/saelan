@@ -2,8 +2,8 @@ import Link from "next/link";
 import { getProjectBySlug, getAllProjects } from "../../../lib/projects";
 import { notFound } from "next/navigation";
 
-export default function ProjectPage({ params }) {
-  const project = getProjectBySlug(params.slug);
+export default async function ProjectPage({ params }) {
+  const project = await getProjectBySlug(params.slug);
 
   if (!project) {
     return notFound();
@@ -71,6 +71,7 @@ export default function ProjectPage({ params }) {
   );
 }
 
-export function generateStaticParams() {
-  return getAllProjects().map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const projects = await getAllProjects();
+  return projects.map((p) => ({ slug: p.slug }));
 }

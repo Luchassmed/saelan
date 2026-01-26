@@ -1,8 +1,8 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import Header from "../components/Header";
 import TransitionWrapper from "../components/TransitionWrapper";
+import { getAllProjects } from "../lib/projects";
 
 // Font files can be colocated inside of `pages`
 const myFont = localFont({ src: "ItalianPlateNo2-Light.otf" });
@@ -12,11 +12,13 @@ export const metadata = {
   description: "Oskar Sælan Halskov",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const projects = await getAllProjects();
+
   return (
     <html lang="en">
       <body className={myFont.className}>
-        <Header />
+        <Header projects={projects} />
         <TransitionWrapper>
           <div className="min-h-screen pt-16">{children}</div>
         </TransitionWrapper>
