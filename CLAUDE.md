@@ -13,7 +13,7 @@ npm run lint     # ESLint
 
 ## Tech Stack
 
-- **Next.js 14.2.3** — App Router, static generation
+- **Next.js 14.2.32** — App Router, static generation
 - **React 18** — Client + Server Components
 - **Tailwind CSS 3.4.1** — Utility-first styling
 - **Framer Motion 11.2.10** — Animation library (installed, lightly used)
@@ -91,15 +91,13 @@ STRAPI_API_TOKEN=<read-only-token>
 - **Backend (Strapi)**: Railway, deployed via `railway up` from `../saelan-cms/`
 - **Images**: Cloudinary (free tier)
 
-## Remaining Setup Steps (pick up from here)
+## Redeploying Strapi
 
-The Strapi CMS code changes and Railway deployment are complete. The following manual steps remain:
-
-1. **Register admin account on production Strapi**: Go to https://strapi-production-8ff7.up.railway.app/admin and create an admin user
-2. **Set API permissions**: Settings > Roles > Public > enable `find` and `findOne` on the Project content type
-3. **Create API token**: Settings > API Tokens > create a read-only token named `nextjs-frontend`
-4. **Add Vercel environment variables**: In the Vercel dashboard for `saelan`, add:
-   - `NEXT_PUBLIC_STRAPI_URL` = `https://strapi-production-8ff7.up.railway.app`
-   - `STRAPI_API_TOKEN` = *(the token from step 3)*
-5. **Trigger a Vercel redeploy** after adding the env vars (push a commit or redeploy from dashboard)
-6. **Add projects in production Strapi** — images will be stored in Cloudinary automatically
+When making changes to the Strapi project:
+```bash
+cd ../saelan-cms
+# make changes, then:
+git add -A && git commit -m "description"
+git push origin main
+railway up --detach
+```
