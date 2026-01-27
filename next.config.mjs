@@ -17,6 +17,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/admin",
+        destination: "https://strapi-production-8ff7.up.railway.app/admin",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
