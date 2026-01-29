@@ -32,19 +32,24 @@ export default function Header({ projects = [] }) {
   }, [visible]);
 
   useEffect(() => {
-    // initialize visibility from localStorage and listen for showHeader events
-    try {
-      if (localStorage.getItem("showHeader") === "true") {
-        setVisible(true);
+    // For non-home routes, always show the header (handles direct visits)
+    if (pathname !== "/") {
+      setVisible(true);
+    } else {
+      // For home page, respect localStorage (preserves splash behavior)
+      try {
+        if (localStorage.getItem("showHeader") === "true") {
+          setVisible(true);
+        }
+      } catch (e) {
+        // ignore (SSR safety)
       }
-    } catch (e) {
-      // ignore (SSR safety)
     }
 
     const handler = () => setVisible(true);
     window.addEventListener("showHeader", handler);
     return () => window.removeEventListener("showHeader", handler);
-  }, []);
+  }, [pathname]);
 
   // Note: menu should remain open once opened. We intentionally do not
   // close it on outside clicks. The only way to close is via POLYRATTAN or KONTAKT.
