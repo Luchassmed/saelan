@@ -76,13 +76,7 @@ export default function Page() {
             }}
             className={isTransitioning ? "fade-out" : ""}
           >
-            <Video
-              widthClass="w-[800px]"
-              aspect={1.44512195}
-              focalX="50%"
-              focalY="35%" // move the video down inside the mask
-              zoom={1.08}
-            />
+            <Video widthClass="w-[800px]" />
           </div>
         ) : (
           <img
