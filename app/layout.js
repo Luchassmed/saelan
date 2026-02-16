@@ -20,7 +20,7 @@ export default async function RootLayout({ children }) {
       <body className={myFont.className}>
         <Header projects={projects} />
         <TransitionWrapper>
-          <div className="flex flex-col min-h-[calc(100vh-4rem)] pt-16">{children}</div>
+          <div className="flex flex-col min-h-[calc(100vh-4rem)] pt-16 overflow-visible">{children}</div>
         </TransitionWrapper>
       </body>
     </html>

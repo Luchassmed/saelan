@@ -11,10 +11,10 @@ export default async function ProjectPage({ params }) {
   }
 
   return (
-    <main className="fade-in p-8 max-w-5xl mx-auto scroll-mt-16">
+    <main className="fade-in p-8 mx-auto scroll-mt-16 overflow-visible">
       <style>{`
   .project-layout { position: relative; min-height: calc(100vh - 4rem); }
-  .project-image { width: 20rem; height: 20rem; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); object-fit: cover; }
+  .project-image { width: 20rem; height: 20rem; max-width: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); object-fit: cover; }
   /* make the side panel the same height as the image so bottom alignment is predictable */
   .project-side { position: absolute; top: calc(50% - 10rem); left: calc(50% + 10rem + 1rem); width: 28rem; display: flex; flex-direction: column; justify-content: space-between; height: 20rem; }
   .project-meta { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; text-align: right; align-items: flex-end; }
