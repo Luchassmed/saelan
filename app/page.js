@@ -55,7 +55,7 @@ export default function Page() {
 
   return (
     <div
-      className="bg-white text-black flex flex-col items-center justify-center flex-1 p-10 gap-20"
+      className="bg-white text-black flex flex-col items-center justify-center flex-1 p-10 gap-20 overflow-hidden"
       onClick={handleClick}
     >
       <div className="w-full max-w-2xl h-full py-4 mx-auto flex items-center justify-center">
@@ -82,7 +82,7 @@ export default function Page() {
           <img
             src="/PH.jpg"
             alt="Placeholder"
-            className="w-full h-full object-cover rounded fade-in"
+            className="w-full max-h-full object-cover rounded fade-in"
           />
         )}
       </div>
