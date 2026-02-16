@@ -3,7 +3,7 @@
 export default function Video({ widthClass = "w-[800px]", poster }) {
   return (
     <video
-      src="/hero.mp4"
+      src="/PolyrattanVideoHD.mp4"
       autoPlay
       muted
       loop
