@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { getProjectBySlug, getAllProjects } from "../../../lib/projects";
 import { notFound } from "next/navigation";
 
@@ -43,7 +44,13 @@ export default async function ProjectPage({ params }) {
 
         <div className="project-side">
           <div>
-            <p className="text-sm text-gray-700">{project.description}</p>
+            <div className="text-sm text-gray-700">
+              {Array.isArray(project.description) ? (
+                <BlocksRenderer content={project.description} />
+              ) : (
+                <p>{project.description}</p>
+              )}
+            </div>
           </div>
 
           <div className="project-meta text-sm text-gray-600">

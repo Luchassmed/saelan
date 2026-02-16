@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { getAllProjects } from "../../lib/projects";
 
+function getPlainText(description) {
+  if (typeof description === "string") return description;
+  if (!Array.isArray(description)) return "";
+  return description
+    .flatMap((block) => block.children?.map((child) => child.text) || [])
+    .join("");
+}
+
 export default async function ProjectsPage() {
   const projects = await getAllProjects();
 
@@ -19,7 +27,7 @@ export default async function ProjectsPage() {
             >
               <div className="font-semibold text-lg">{project.title}</div>
               <p className="text-sm text-gray-600 mt-1">
-                {project.description}
+                {getPlainText(project.description)}
               </p>
             </Link>
           </li>
