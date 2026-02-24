@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/luchasschmidt/Git/saelan-cms/src/api/project/services/**)",
+      "Read(//Users/luchasschmidt/Git/saelan-cms/src/api/project/controllers/**)",
+      "Read(//Users/luchasschmidt/Git/saelan-cms/**)"
+    ]
+  }
+}

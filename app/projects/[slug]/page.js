@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { getProjectBySlug, getAllProjects } from "../../../lib/projects";
 import { notFound } from "next/navigation";
+import ImageCarousel from "../../../components/ImageCarousel";
 
 export default async function ProjectPage({ params }) {
   const project = await getProjectBySlug(params.slug);
@@ -26,7 +27,7 @@ export default async function ProjectPage({ params }) {
           .project-side { top: calc(50% - 12rem); left: calc(50% + 12rem + 1rem); }
         }
         @media (max-width: 767px) {
-          .project-image { position: static; width: 100%; height: auto; transform: none; margin: 0 auto; display: block; }
+          .project-image { position: static; width: 100%; height: 20rem; transform: none; margin: 0 auto; display: block; }
           .project-side { position: static; width: 100%; margin-top: 1rem; }
         }
       `}</style>
@@ -34,13 +35,7 @@ export default async function ProjectPage({ params }) {
       <div className="project-layout">
         <h1 className="sr-only">{project.title}</h1>
 
-        {project.image && (
-          <img
-            src={project.image}
-            alt={project.title}
-            className="project-image rounded"
-          />
-        )}
+        <ImageCarousel images={project.images} alt={project.title} />
 
         <div className="project-side">
           <div>
