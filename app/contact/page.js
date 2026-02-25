@@ -12,7 +12,7 @@ export default function ContactPage() {
 
         <div className="text-left md:text-center">
           <p className="mb-2">
-            Hjemmeside/Webpage
+            Hjemmeside.<em>Webpage</em>
             <br />
             <p>Luchas Schmidt</p>
           </p>

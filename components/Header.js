@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 export default function Header({ projects = [] }) {
   const [showGrid, setShowGrid] = useState(false);
@@ -9,8 +9,10 @@ export default function Header({ projects = [] }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedTop, setSelectedTop] = useState(false);
+  const [selectedContact, setSelectedContact] = useState(false);
   const ref = useRef(null);
   const pathname = usePathname();
+  const router = useRouter();
   const [animate, setAnimate] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -63,6 +65,7 @@ export default function Header({ projects = [] }) {
       setSelectedCategory(null);
       setSelectedProject(null);
       setSelectedTop(false);
+      setSelectedContact(false);
       try {
         localStorage.setItem("showHeader", "false");
       } catch (e) {}
@@ -87,7 +90,7 @@ export default function Header({ projects = [] }) {
               setShowGrid(true);
               setSelectedTop(true);
             }}
-            className={`text-sm font-bold ${
+            className={`text-sm font-bold transition-all duration-500 ${
               selectedTop ? "filter blur-sm opacity-60" : ""
             }`}
             aria-expanded={showGrid}
@@ -112,7 +115,7 @@ export default function Header({ projects = [] }) {
                       // mark as selected when clicked
                       setSelectedCategory(next);
                     }}
-                    className={`w-full text-left px-4 py-2 ${
+                    className={`w-full text-left px-4 py-2 transition-all duration-500 ${
                       selectedCategory === cat.key
                         ? "filter blur-sm opacity-60"
                         : ""
@@ -129,7 +132,7 @@ export default function Header({ projects = [] }) {
                           <li key={p.slug} className="py-1">
                             <Link
                               href={`/projects/${p.slug}`}
-                              className={`text-sm ${
+                              className={`text-sm transition-all duration-500 ${
                                 selectedProject === p.slug
                                   ? "filter blur-sm opacity-60"
                                   : ""
@@ -162,6 +165,7 @@ export default function Header({ projects = [] }) {
             setSelectedCategory(null);
             setSelectedProject(null);
             setSelectedTop(false);
+            setSelectedContact(false);
             try {
               localStorage.setItem("showHeader", "false");
             } catch (e) {}
@@ -181,20 +185,22 @@ export default function Header({ projects = [] }) {
         </Link>
 
         <div className="ml-auto">
-          <Link
-            href="/contact"
-            className="text-sm"
+          <button
+            className={`text-sm transition-all duration-500 ${
+              selectedContact ? "filter blur-sm opacity-60" : ""
+            }`}
             onClick={() => {
-              // clicking KONTAKT should close the menu but keep the header visible
               setShowGrid(false);
               setOpenCategory(null);
               setSelectedCategory(null);
               setSelectedProject(null);
               setSelectedTop(false);
+              setSelectedContact(true);
+              setTimeout(() => router.push("/contact"), 500);
             }}
           >
             KONTAKT.<em className="italic">CONTACT</em>
-          </Link>
+          </button>
         </div>
       </div>
     </header>
