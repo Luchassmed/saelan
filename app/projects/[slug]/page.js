@@ -27,8 +27,8 @@ export default async function ProjectPage({ params }) {
           .project-side { top: calc(50% - 12rem); left: calc(50% + 12rem + 1rem); }
         }
         @media (max-width: 767px) {
-          .project-image { position: static; width: 100%; height: 20rem; transform: none; margin: 0 auto; display: block; }
-          .project-side { position: static; width: 100%; margin-top: 1rem; }
+          .project-image { position: relative; width: 100%; height: 20rem; left: auto; top: auto; transform: none; margin: 0 auto; display: block; }
+          .project-side { position: static; width: 100%; left: auto; top: auto; height: auto; margin-top: 1rem; }
         }
       `}</style>
 
