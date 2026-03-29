@@ -125,7 +125,7 @@ export default function Header({ projects = [] }) {
                     <em className="italic">{cat.label.split(".")[1]}</em>
                   </button>
                   {openCategory === cat.key && (
-                    <ul className="absolute left-full top-0 ml-2 w-56 bg-white rounded px-3 py-2 z-50">
+                    <ul className="absolute left-0 top-full mt-1 sm:left-full sm:top-0 sm:ml-2 w-56 bg-white rounded px-3 py-2 z-50">
                       {projects
                         .filter((p) => p.category === cat.key)
                         .map((p) => (

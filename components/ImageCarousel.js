@@ -58,7 +58,7 @@ export default function ImageCarousel({ images = [], alt = "" }) {
 
   return (
     <div className="project-image rounded overflow-hidden relative select-none">
-      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+      <AnimatePresence initial={false} custom={direction} mode="sync">
         <motion.img
           key={index}
           src={images[index]}

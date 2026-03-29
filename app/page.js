@@ -76,7 +76,7 @@ export default function Page() {
             }}
             className={isTransitioning ? "fade-out" : ""}
           >
-            <Video widthClass="w-[800px]" />
+            <Video widthClass="w-full sm:w-[800px]" />
           </div>
         ) : (
           <img

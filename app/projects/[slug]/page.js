@@ -12,7 +12,7 @@ export default async function ProjectPage({ params }) {
   }
 
   return (
-    <main className="fade-in p-8 mx-auto scroll-mt-16 overflow-visible">
+    <main className="fade-in px-8 pb-8 pt-20 sm:pt-8 mx-auto scroll-mt-16 overflow-visible">
       <style>{`
   .project-layout { position: relative; min-height: calc(100vh - 4rem); }
   .project-image { width: 20rem; height: 20rem; max-width: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); object-fit: cover; }
