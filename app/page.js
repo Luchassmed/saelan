@@ -55,7 +55,7 @@ export default function Page() {
 
   return (
     <div
-      className="bg-white text-black flex flex-col items-center justify-center flex-1 p-10 gap-20 overflow-hidden"
+      className="bg-white text-black flex flex-col items-center justify-center flex-1 p-4 sm:p-10 gap-8 sm:gap-20 overflow-hidden"
       onClick={handleClick}
     >
       <div className="w-full max-w-2xl h-full py-4 mx-auto flex items-center justify-center">

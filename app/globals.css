@@ -38,6 +38,18 @@ body {
   }
 }
 
+/* Viewport height below the fixed 4rem header. 100vh on iOS Safari is the
+   *expanded* viewport, so content ends up under the browser chrome; 100dvh
+   fixes it, with the vh value left as the fallback for older browsers. */
+.min-h-viewport {
+  min-height: calc(100vh - 4rem);
+}
+@supports (height: 100dvh) {
+  .min-h-viewport {
+    min-height: calc(100dvh - 4rem);
+  }
+}
+
 /* globals.css */
 .polyrattan-mask {
   -webkit-mask-image: url("/logoTransparent.png"); /* transparent PNG */

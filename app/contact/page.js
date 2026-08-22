@@ -1,6 +1,6 @@
 export default function ContactPage() {
   return (
-    <main className="fade-in min-h-[calc(100vh-4rem)] flex items-center justify-center px-6">
+    <main className="fade-in min-h-viewport flex items-center justify-center px-6">
       <div className="text-center text-sm tracking-widest space-y-6 max-w-xl">
         <p>
           Oskar Sælan Halskov

@@ -14,7 +14,7 @@ export default async function ProjectPage({ params }) {
   return (
     <main className="fade-in px-8 pb-8 pt-20 sm:pt-8 mx-auto scroll-mt-16 overflow-visible">
       <style>{`
-  .project-layout { position: relative; min-height: calc(100vh - 4rem); }
+  .project-layout { position: relative; }
   .project-image { width: 20rem; height: 20rem; max-width: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); object-fit: cover; }
   /* make the side panel the same height as the image so bottom alignment is predictable */
   .project-side { position: absolute; top: calc(50% - 10rem); left: calc(50% + 10rem + 1rem); width: 28rem; display: flex; flex-direction: column; justify-content: space-between; height: 20rem; }
@@ -32,7 +32,7 @@ export default async function ProjectPage({ params }) {
         }
       `}</style>
 
-      <div className="project-layout">
+      <div className="project-layout min-h-viewport">
         <h1 className="sr-only">{project.title}</h1>
 
         <ImageCarousel images={project.images} alt={project.title} />
