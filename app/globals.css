@@ -7,7 +7,18 @@
   src: url("../public/fonts/ItalianPlateNo2Expanded-Light.otf");
 }
 
+/* The splash video's white background is baked into the asset, so every surface
+   it sits on has to be that same white on every device. Nothing declared a
+   background on html/body, which left the top 4rem strip (the header's pt-16
+   gutter) painted by the UA canvas instead of the page. Declaring color-scheme
+   pins that canvas to light so it can't follow the OS theme. */
+html {
+  color-scheme: light;
+  background-color: #fff;
+}
+
 body {
+  background-color: #fff;
   font-family: "Italian Plate", "Inter", Arial, sans-serif;
 }
 
