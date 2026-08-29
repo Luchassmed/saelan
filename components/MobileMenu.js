@@ -1,18 +1,42 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { CATEGORIES } from "../lib/categories";
+
+// Reads the active project/contact straight off the URL so reopening the panel
+// shows the same blurred "you are here" state the desktop header keeps in
+// memory. The panel unmounts on close, so there is no state to carry over.
+function activeFromPath(pathname, projects) {
+  if (pathname === "/contact") {
+    return { contact: true, project: null, category: null };
+  }
+  if (pathname?.startsWith("/projects/")) {
+    const raw = pathname.slice("/projects/".length);
+    // usePathname keeps the URL-encoded form; slugs may contain æ/ø/å.
+    let slug = raw;
+    try {
+      slug = decodeURIComponent(raw);
+    } catch (e) {}
+    const project = projects.find((p) => p.slug === slug);
+    if (project) {
+      return { contact: false, project: slug, category: project.category };
+    }
+  }
+  return { contact: false, project: null, category: null };
+}
 
 // Full-screen panel used below the `lg` breakpoint. Only mounted while the menu
 // is open, so the blur/accordion state resets on every open and `.fade-in` runs
 // again on mount.
 export default function MobileMenu({ projects = [], onClose }) {
-  const [openCategory, setOpenCategory] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [selectedContact, setSelectedContact] = useState(false);
+  const pathname = usePathname();
+  const [active] = useState(() => activeFromPath(pathname, projects));
+  const [openCategory, setOpenCategory] = useState(active.category);
+  const [selectedCategory, setSelectedCategory] = useState(active.category);
+  const [selectedProject, setSelectedProject] = useState(active.project);
+  const [selectedContact, setSelectedContact] = useState(active.contact);
   const router = useRouter();
 
   useEffect(() => {
@@ -35,6 +59,7 @@ export default function MobileMenu({ projects = [], onClose }) {
   // Same blur-then-navigate feel as the desktop KONTAKT button.
   function handleProjectClick(e, project, categoryKey) {
     e.preventDefault();
+    setSelectedContact(false);
     setSelectedProject(project.slug);
     setSelectedCategory(categoryKey);
     setTimeout(() => {
@@ -88,6 +113,9 @@ export default function MobileMenu({ projects = [], onClose }) {
                       <Link
                         href={`/projects/${p.slug}`}
                         onClick={(e) => handleProjectClick(e, p, cat.key)}
+                        aria-current={
+                          selectedProject === p.slug ? "page" : undefined
+                        }
                         className={`block px-8 py-3 min-h-[44px] text-sm transition-all duration-500 ${
                           selectedProject === p.slug
                             ? "filter blur-sm opacity-60"
@@ -103,10 +131,9 @@ export default function MobileMenu({ projects = [], onClose }) {
           </div>
         ))}
 
-        <div className="border-t border-black/10 mx-4 my-2" />
-
         <button
           onClick={handleContactClick}
+          aria-current={selectedContact ? "page" : undefined}
           className={`w-full text-left px-4 py-4 min-h-[44px] text-sm transition-all duration-500 ${
             selectedContact ? "filter blur-sm opacity-60" : ""
           }`}

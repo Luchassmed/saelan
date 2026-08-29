@@ -10,13 +10,11 @@ export default function ContactPage() {
           0045 50359085
         </p>
 
-        <div className="text-left md:text-center">
-          <p className="mb-2">
-            Hjemmeside.<em>Webpage</em>
-            <br />
-            <p>Luchas Schmidt</p>
-          </p>
-        </div>
+        <p>
+          Hjemmeside.<em>Webpage</em>
+          <br />
+          Luchas Schmidt
+        </p>
       </div>
     </main>
   );
